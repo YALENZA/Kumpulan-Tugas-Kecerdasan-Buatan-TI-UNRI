@@ -29,6 +29,41 @@
     class S7,S12,S13,S14,S15,S16 goal;
 
 
+# TESTING PENGGUNAAN TABEL PADA README.md
+
+| Isi ember A | Isi ember B | Aturan yg dipakai |
+| :---: | :---: | :--- |
+| 0 | 0 | 2 (Isi galon B sampai penuh) |
+| 0 | 3 | 9 (Tuang seluruh air galon B ke A) |
+| 3 | 0 | 2 (Isi galon B sampai penuh) |
+| 3 | 3 | 7 (Tuang air galon B ke A sampai A penuh) |
+| 4 | 2 | 5 (Kosongkan galon A) |
+| 0 | 2 | 9 (Tuang seluruh air galon B ke A) |
+| **2** | **0** | **Solusi Tercapai** |
+
+#### Solusi untuk Tujuan: (2,1)
+
+| Isi ember A | Isi ember B | Aturan yg dipakai |
+| :---: | :---: | :--- |
+| 0 | 0 | 1 (Isi galon A sampai penuh) |
+| 4 | 0 | 8 (Tuang air galon A ke B sampai B penuh) |
+| 1 | 3 | 6 (Kosongkan galon B) |
+| 1 | 0 | 10 (Tuang seluruh air galon A ke B) |
+| 0 | 1 | 1 (Isi galon A sampai penuh) |
+| 4 | 1 | 8 (Tuang air galon A ke B sampai B penuh) |
+| 2 | 3 | 4 (Buang sebagian air, d=2, dari galon B) |
+| **2** | **1** | **Solusi Tercapai** |
+
+#### Solusi untuk Tujuan: (2,2)
+
+| Isi ember A | Isi ember B | Aturan yg dipakai |
+| :---: | :---: | :--- |
+| 0 | 0 | 2 (Isi galon B sampai penuh) |
+| 0 | 3 | 9 (Tuang seluruh air galon B ke A) |
+| 3 | 0 | 2 (Isi galon B sampai penuh) |
+| 3 | 3 | 7 (Tuang air galon B ke A sampai A penuh) |
+| 4 | 2 | 3 (Buang sebagian air, d=2, dari galon A) |
+| **2** | **2** | **Solusi Tercapai** |
 
 
 
