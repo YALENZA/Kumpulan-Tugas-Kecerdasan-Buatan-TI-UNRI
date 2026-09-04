@@ -1,4 +1,5 @@
 # Mengenal Peran AI dalam Mendeteksi Serangan Cybersecurity
+oleh: Athaya Nabil Putra Halby - 2407134906
 
 
 
