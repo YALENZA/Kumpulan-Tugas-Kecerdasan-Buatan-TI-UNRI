@@ -1,5 +1,36 @@
 # TESTING MERMAID.JS
 
+# 📚 Portofolio Tugas Artificial Intelligence
+
+Repositori ini memuat kumpulan penugasan mata kuliah Artificial Intelligence, yang mencakup penyelesaian ruang masalah (*State Space*) dan analisis implementasi AI di kehidupan nyata.
+
+## 📑 Daftar Isi
+- [Tugas 2: Ruang Masalah AI (Kasus Water Jug)](#tugas-2-ruang-masalah-ai-kasus-water-jug)
+- [Tugas 1: Artikel Implementasi AI dalam Cybersecurity](#tugas-1-artikel-implementasi-ai-dalam-cybersecurity)
+
+---
+
+## Tugas 2: Ruang Masalah AI (Kasus Water Jug)
+
+### Pendahuluan dan Aturan Permainan
+Dalam permasalahan penakaran air ini, kita menggunakan dua buah takaran, yaitu Galon A yang berkapasitas maksimal 4 liter, dan Galon B yang berkapasitas maksimal 3 liter. Tujuan dari penyelesaian ruang masalah ini adalah bagaimana mendapatkan tepat 2 liter air pada Galon A, dengan bermodalkan kedua galon tersebut.
+
+Untuk melakukan perpindahan keadaan atau ruang masalah (*State Space*), terdapat 11 aturan operasi yang dapat diterapkan:
+1. Jika $x < 4$, isi galon A sampai penuh `(4,y)`.
+2. Jika $y < 3$, isi galon B sampai penuh `(x,3)`.
+3. Jika $x > 0$, buang sebagian air (d) dari galon A `(x-d,y)`.
+4. Jika $y > 0$, buang sebagian air (d) dari galon B `(x,y-d)`.
+5. Jika $x > 0$, kosongkan galon A `(0,y)`.
+6. Jika $y > 0$, kosongkan galon B `(x,0)`.
+7. Jika $x+y \ge 4$ dan $y > 0$, tuangkan air dari galon B ke galon A sampai galon A penuh `(4,y-(4-x))`.
+8. Jika $x+y \ge 3$ dan $x > 0$, tuangkan air dari galon A ke galon B sampai galon B penuh `(x-(3-y),3)`.
+9. Jika $x+y \le 4$ dan $y > 0$, tuangkan seluruh air dari galon B ke galon A `(x+y,0)`.
+10. Jika $x+y \le 3$ dan $x > 0$, tuangkan seluruh air dari galon A ke galon B `(0,x+y)`.
+11. Dari keadaan (0,2), tuangkan 2 liter air dari galon B ke galon A `(2,0)`.
+
+### Jawaban No. 1: Pohon Pelacakan (Search Tree)
+Diagram pohon di bawah ini memetakan langkah-langkah penyelesaian dari keadaan awal `(0,0)` hingga mencapai kemungkinan himpunan tujuan `{(2,0), (2,1), (2,2), (2,3)}`.
+
 ```mermaid
 graph TD
     S0("(0,0) Start") -->|Aturan 1| S1("(4,0)")
@@ -29,6 +60,7 @@ graph TD
     
     classDef goal fill:#28a745,stroke:#fff,stroke-width:2px,color:#fff;
     class S7,S12,S13,S14,S15,S16 goal;
+```
 
 
 # TESTING PENGGUNAAN TABEL PADA README.md
