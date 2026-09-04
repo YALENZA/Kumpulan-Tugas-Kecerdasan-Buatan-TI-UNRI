@@ -27,7 +27,7 @@ Untuk melakukan perpindahan keadaan atau ruang masalah (*State Space*), terdapat
 ### Jawaban No. 1: Pohon Pelacakan (Search Tree)
 Diagram pohon di bawah ini memetakan langkah-langkah penyelesaian dari keadaan awal `(0,0)` hingga mencapai kemungkinan himpunan tujuan `{(2,0), (2,1), (2,2), (2,3)}`.
 
-````mermaid
+```mermaid
 graph TD
     %% mulai dari nol galon kosong
     S0("(0,0)") -->|Aturan 1| S1("(4,0)")
