@@ -24,7 +24,7 @@ Untuk melakukan perpindahan keadaan atau ruang masalah (*State Space*), terdapat
 10. Jika $x+y \le 3$ dan $x > 0$, tuangkan seluruh air dari galon A ke galon B `(0,x+y)`.
 11. Dari keadaan (0,2), tuangkan 2 liter air dari galon B ke galon A `(2,0)`.
 
-### Jawaban No. 1: Pohon Pelacakan (Search Tree)
+### Jawaban No. 1: Pohon Pelacakan
 Diagram pohon di bawah ini memetakan langkah-langkah penyelesaian dari keadaan awal `(0,0)` hingga mencapai kemungkinan himpunan tujuan `{(2,0), (2,1), (2,2), (2,3)}`.
 
 ```mermaid
@@ -85,8 +85,8 @@ graph TD
     class S1_2,S2_2,S1_1_A,S1_1_B,S1_3_A,S1_3_B,S2_1_A,S2_1_B,S2_3_A,S1_4_A,S2_4_A,S1_5_A,S2_5_A,S2_6_A,S1_6_A buntu;
 ```
 
-### Jawaban No. 2: Tabel Solusi Akhir
-Berikut adalah rincian langkah solutif yang berurutan untuk mencapai tiga spesifik keadaan tujuan `{(2,0), (2,1), (2,2)}`.
+### Jawaban No. 2: Tabel Solusi
+Berikut adalah rincian langkah yang berurutan untuk mencapai tiga spesifik keadaan tujuan `{(2,0), (2,1), (2,2)}`.
 
 #### Solusi untuk Tujuan: (2,0)
 
@@ -126,16 +126,16 @@ Berikut adalah rincian langkah solutif yang berurutan untuk mencapai tiga spesif
 
 ---
 
-## Tugas 1: Artikel Implementasi AI dalam Cybersecurity
+## Tugas 1: Artikel Penerapan Kecerdasan Buatan dalam Dunia Nyata
 
-## Mengenal Peran AI dalam Mendeteksi Serangan Cybersecurity
+### Mengenal Peran AI dalam Mendeteksi Serangan Cybersecurity
 oleh: Athaya Nabil Putra Halby - 2407134906
 
-### Latar Belakang
+#### Latar Belakang
 
 Kalau kita perhatikan, perkembangan dunia digital belakangan ini berlari sangat cepat. Bersamaan dengan itu, ancaman keamanan siber (*cybersecurity*) juga ikut berevolusi menjadi jauh lebih kompleks. Dulu, tim IT mungkin masih sanggup mengandalkan perlindungan standar seperti *firewall* atau antivirus konvensional untuk menjaga sebuah sistem. Mereka memonitor lalu lintas jaringan secara manual dan memeriksa *log* harian. Sayangnya, cara manual seperti ini sudah tidak lagi relevan. Peretas masa kini sudah menggunakan metode otomatis yang masif dan tersebar. Jika sebuah perusahaan hanya mengandalkan tenaga manusia untuk memeriksa ribuan atau bahkan jutaan baris lalu lintas data setiap harinya, sistem mereka pasti akan kewalahan dan akhirnya jebol. Di sinilah pendekatan keamanan jaringan membutuhkan cara pandang yang baru.
 
-### Contoh Penerapan AI dalam Keamanan Siber
+#### Contoh Penerapan AI dalam Keamanan Siber
 
 Untuk mengatasi keterbatasan sistem tradisional dan tenaga manusia, Kecerdasan Buatan (AI) masuk untuk mengambil alih tugas-tugas komputasi berat. AI mengubah cara kita bertahan, dari yang awalnya hanya pasrah menunggu diserang (pendekatan reaktif) menjadi lebih waspada dan bersiap sebelum serangan terjadi (pendekatan proaktif).
 
@@ -150,19 +150,17 @@ Saat ini, pembuat virus sangat pintar merancang *malware* yang bisa bermutasi at
 **3. Intelijen Ancaman (*Threat Intelligence*)**  
 AI juga bertugas sebagai agen pengumpul intelijen yang bekerja dengan kecepatan kilat. Sistem AI dapat disetel untuk secara otomatis merayapi ribuan forum internet, situs web, hingga *dark web* dalam waktu singkat. Tujuannya adalah mencari tahu tren celah keamanan apa yang sedang ramai didiskusikan oleh komunitas peretas. Lewat peringatan dini dari AI ini, tim keamanan TI memiliki cukup waktu untuk segera melakukan penambalan (*patching*) pada kerentanan sistem mereka jauh hari sebelum peretas benar-benar melancarkan eksploitasi.
 
-### Kesimpulan
+#### Kesimpulan
 
 Kehadiran Kecerdasan Buatan dalam ranah keamanan siber jelas membawa perubahan yang luar biasa. Namun, penting untuk dicatat bahwa AI bukanlah entitas yang akan menggantikan peran seorang insinyur keamanan (*Security Engineer*). AI lebih tepat disebut sebagai alat kolaborasi tingkat tinggi. Mesin bertugas memproses jutaan data, menyaring anomali, dan menahan serangan awal dalam hitungan detik. Di sisi lain, manusia tetap memegang kendali untuk melakukan investigasi mendalam, merumuskan kebijakan keamanan, dan mengambil keputusan strategis. Sinergi antara kecepatan komputasi mesin dan logika analitis manusia inilah yang menjadi kunci utama pertahanan jaringan di masa depan.
 
 ---
 
-### Referensi
+#### Referensi
 
 Artikel ini disusun berdasarkan studi literatur dari jurnal akademik berikut:
 
 1. Widalala, R. R., dkk. (2024). *"Dampak Penggunaan Artificial Intelligence Pada Keamanan Siber: Sebuah Kajian Terhadap Potensi Keuntungan dan Ancaman"*. Berajah Journal, 4(8), 1541–1552.  
-🔗 [Tautan Publikasi Jurnal](https://ojs.berajah.com/index.php/go/article/view/458)
+[Tautan Publikasi Jurnal](https://ojs.berajah.com/index.php/go/article/view/458)
 2. Purnomo, A., dkk. (2024). *"Peran Artificial Intelligence dalam Deteksi Dini Ancaman Keamanan Jaringan"*. Jurnal Minfo Polgan, 13(2).  
-🔗 [Tautan Publikasi Jurnal](https://jurnal.polgan.ac.id/index.php/jmp/article/download/14356/2931/20482)
-3. Abast, B. R., dkk. (2025). *"Pengaruh Teknologi AI Terhadap Evolusi Modus Kejahatan Siber di Indonesia dan Implikasinya Terhadap Penegakan Hukum"*. Jurnal Nusantara (JICN), 2(6).  
-🔗 [Tautan Publikasi Jurnal](https://jicnusantara.com/index.php/jicn/article/download/6108/6137/34433)
+[Tautan Publikasi Jurnal](https://jurnal.polgan.ac.id/index.php/jmp/article/download/14356/2931/20482)
