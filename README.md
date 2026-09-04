@@ -1,29 +1,31 @@
 # TESTING MERMAID.JS
 
-    S0\\\["(0,0) Start"] -->|Aturan 1| S1\\\["(4,0)"]
-    S0 -->|Aturan 2| S2\\\["(0,3)"]
+```mermaid
+graph TD
+    S0("(0,0) Start") -->|Aturan 1| S1("(4,0)")
+    S0 -->|Aturan 2| S2("(0,3)")
     
     %% Jalur Kiri (Mulai dari Isi Galon A)
-    S1 -->|Aturan 8| S3\\\["(1,3)"]
-    S3 -->|Aturan 6| S4\\\["(1,0)"]
-    S4 -->|Aturan 10| S5\\\["(0,1)"]
-    S5 -->|Aturan 1| S6\\\["(4,1)"]
-    S6 -->|Aturan 8| S7\\\["(2,3) TERCAPAI!"]
+    S1 -->|Aturan 8| S3("(1,3)")
+    S3 -->|Aturan 6| S4("(1,0)")
+    S4 -->|Aturan 10| S5("(0,1)")
+    S5 -->|Aturan 1| S6("(4,1)")
+    S6 -->|Aturan 8| S7("(2,3) TERCAPAI!")
     
     %% Penyelesaian dari (2,3) ke Tujuan Lainnya
-    S7 -->|Aturan 6| S13\\\["(2,0) TERCAPAI!"]
-    S7 -->|Aturan 4 (d=2)| S14\\\["(2,1) TERCAPAI!"]
-    S7 -->|Aturan 4 (d=1)| S15\\\["(2,2) TERCAPAI!"]
+    S7 -->|Aturan 6| S13("(2,0) TERCAPAI!")
+    S7 -->|Aturan 4, d=2| S14("(2,1) TERCAPAI!")
+    S7 -->|Aturan 4, d=1| S15("(2,2) TERCAPAI!")
     
     %% Jalur Kanan (Mulai dari Isi Galon B)
-    S2 -->|Aturan 9| S8\\\["(3,0)"]
-    S8 -->|Aturan 2| S9\\\["(3,3)"]
-    S9 -->|Aturan 7| S10\\\["(4,2)"]
+    S2 -->|Aturan 9| S8("(3,0)")
+    S8 -->|Aturan 2| S9("(3,3)")
+    S9 -->|Aturan 7| S10("(4,2)")
     
     %% Penyelesaian dari (4,2)
-    S10 -->|Aturan 5| S11\\\["(0,2)"]
-    S11 -->|Aturan 9| S12\\\["(2,0) TERCAPAI!"]
-    S10 -->|Aturan 3 (d=2)| S16\\\["(2,2) TERCAPAI!"]
+    S10 -->|Aturan 5| S11("(0,2)")
+    S11 -->|Aturan 9| S12("(2,0) TERCAPAI!")
+    S10 -->|Aturan 3, d=2| S16("(2,2) TERCAPAI!")
     
     classDef goal fill:#28a745,stroke:#fff,stroke-width:2px,color:#fff;
     class S7,S12,S13,S14,S15,S16 goal;
