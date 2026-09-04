@@ -1,16 +1,12 @@
-# TESTING MERMAID.JS
+# Kumpulan Penyelesaian Tugas Kecerdasan Buatan oleh Athaya Nabil Putra Halby (2407134906) -- TI UNRI
 
-# 📚 Portofolio Tugas Artificial Intelligence
-
-Repositori ini memuat kumpulan penugasan mata kuliah Artificial Intelligence, yang mencakup penyelesaian ruang masalah (*State Space*) dan analisis implementasi AI di kehidupan nyata.
-
-## 📑 Daftar Isi
+## Daftar Isi
 - [Tugas 2: Ruang Masalah AI (Kasus Water Jug)](#tugas-2-ruang-masalah-ai-kasus-water-jug)
 - [Tugas 1: Artikel Implementasi AI dalam Cybersecurity](#tugas-1-artikel-implementasi-ai-dalam-cybersecurity)
 
 ---
 
-## Tugas 2: Ruang Masalah AI (Kasus Water Jug)
+## Tugas 2: Kasus Water Jug
 
 ### Pendahuluan dan Aturan Permainan
 Dalam permasalahan penakaran air ini, kita menggunakan dua buah takaran, yaitu Galon A yang berkapasitas maksimal 4 liter, dan Galon B yang berkapasitas maksimal 3 liter. Tujuan dari penyelesaian ruang masalah ini adalah bagaimana mendapatkan tepat 2 liter air pada Galon A, dengan bermodalkan kedua galon tersebut.
@@ -33,37 +29,50 @@ Diagram pohon di bawah ini memetakan langkah-langkah penyelesaian dari keadaan a
 
 ```mermaid
 graph TD
-    S0("(0,0) Start") -->|Aturan 1| S1("(4,0)")
+    S0("(0,0)") -->|Aturan 1| S1("(4,0)")
     S0 -->|Aturan 2| S2("(0,3)")
     
-    %% Jalur Kiri (Mulai dari Isi Galon A)
-    S1 -->|Aturan 8| S3("(1,3)")
-    S3 -->|Aturan 6| S4("(1,0)")
-    S4 -->|Aturan 10| S5("(0,1)")
-    S5 -->|Aturan 1| S6("(4,1)")
-    S6 -->|Aturan 8| S7("(2,3) TERCAPAI!")
+    %% Cabang Level 2 (Kiri - Sesuai Gambar)
+    S1 -->|Aturan 2| S1_1("(4,3)")
+    S1 -->|Aturan 5| S1_2("(0,0)")
+    S1 -->|Aturan 8| S1_3("(1,3)")
     
-    %% Penyelesaian dari (2,3) ke Tujuan Lainnya
-    S7 -->|Aturan 6| S13("(2,0) TERCAPAI!")
-    S7 -->|Aturan 4, d=2| S14("(2,1) TERCAPAI!")
-    S7 -->|Aturan 4, d=1| S15("(2,2) TERCAPAI!")
+    %% Cabang Level 2 (Kanan - Sesuai Gambar)
+    S2 -->|Aturan 1| S2_1("(4,3)")
+    S2 -->|Aturan 6| S2_2("(0,0)")
+    S2 -->|Aturan 9| S2_3("(3,0)")
     
-    %% Jalur Kanan (Mulai dari Isi Galon B)
-    S2 -->|Aturan 9| S8("(3,0)")
-    S8 -->|Aturan 2| S9("(3,3)")
-    S9 -->|Aturan 7| S10("(4,2)")
+    %% Pelacakan Lanjutan Jalur Kiri
+    S1_3 -->|Aturan 6| S1_4("(1,0)")
+    S1_4 -->|Aturan 10| S1_5("(0,1)")
+    S1_5 -->|Aturan 1| S1_6("(4,1)")
+    S1_6 -->|Aturan 8| S1_7("(2,3) TERCAPAI")
     
-    %% Penyelesaian dari (4,2)
-    S10 -->|Aturan 5| S11("(0,2)")
-    S11 -->|Aturan 9| S12("(2,0) TERCAPAI!")
-    S10 -->|Aturan 3, d=2| S16("(2,2) TERCAPAI!")
+    %% Solusi Lanjutan dari (2,3)
+    S1_7 -->|Aturan 6| S1_8("(2,0) TERCAPAI")
+    S1_7 -->|Aturan 4, d=2| S1_9("(2,1) TERCAPAI")
+    S1_7 -->|Aturan 4, d=1| S1_10("(2,2) TERCAPAI")
+    
+    %% Pelacakan Lanjutan Jalur Kanan
+    S2_3 -->|Aturan 2| S2_4("(3,3)")
+    S2_4 -->|Aturan 7| S2_5("(4,2)")
+    
+    %% Solusi Lanjutan dari (4,2)
+    S2_5 -->|Aturan 5| S2_6("(0,2)")
+    S2_6 -->|Aturan 9| S2_7("(2,0) TERCAPAI")
+    S2_5 -->|Aturan 3, d=2| S2_8("(2,2) TERCAPAI")
     
     classDef goal fill:#28a745,stroke:#fff,stroke-width:2px,color:#fff;
-    class S7,S12,S13,S14,S15,S16 goal;
+    classDef deadend fill:#dc3545,stroke:#fff,stroke-width:2px,color:#fff;
+    
+    class S1_7,S1_8,S1_9,S1_10,S2_7,S2_8 goal;
+    class S1_1,S1_2,S2_1,S2_2 deadend;
 ```
 
+### Jawaban No. 2: Tabel Solusi Akhir
+Berikut adalah rincian langkah solutif yang berurutan untuk mencapai tiga spesifik keadaan tujuan `{(2,0), (2,1), (2,2)}`.
 
-# TESTING PENGGUNAAN TABEL PADA README.md
+#### Solusi untuk Tujuan: (2,0)
 
 | Isi ember A | Isi ember B | Aturan yg dipakai |
 | :---: | :---: | :--- |
@@ -99,21 +108,18 @@ graph TD
 | 4 | 2 | 3 (Buang sebagian air, d=2, dari galon A) |
 | **2** | **2** | **Solusi Tercapai** |
 
+---
 
-
+## Tugas 1: Artikel Implementasi AI dalam Cybersecurity
 
 # Mengenal Peran AI dalam Mendeteksi Serangan Cybersecurity
 oleh: Athaya Nabil Putra Halby - 2407134906
 
+### Latar Belakang
 
+Kalau kita perhatikan, perkembangan dunia digital belakangan ini berlari sangat cepat. Bersamaan dengan itu, ancaman keamanan siber (*cybersecurity*) juga ikut berevolusi menjadi jauh lebih kompleks. Dulu, tim IT mungkin masih sanggup mengandalkan perlindungan standar seperti *firewall* atau antivirus konvensional untuk menjaga sebuah sistem. Mereka memonitor lalu lintas jaringan secara manual dan memeriksa *log* harian. Sayangnya, cara manual seperti ini sudah tidak lagi relevan. Peretas masa kini sudah menggunakan metode otomatis yang masif dan tersebar. Jika sebuah perusahaan hanya mengandalkan tenaga manusia untuk memeriksa ribuan atau bahkan jutaan baris lalu lintas data setiap harinya, sistem mereka pasti akan kewalahan dan akhirnya jebol. Di sinilah pendekatan keamanan jaringan membutuhkan cara pandang yang baru.
 
-## Latar Belakang
-
-Kalau kita perhatikan, perkembangan dunia digital belakangan ini berlari sangat cepat. Bersamaan dengan itu, ancaman keamanan siber (*cybersecurity*) juga ikut berevolusi menjadi jauh lebih kompleks. Dulu, tim IT mungkin masih sanggup mengandalkan perlindungan standar seperti *firewall* atau antivirus konvensional untuk menjaga sebuah sistem. Mereka memonitor lalu lintas jaringan secara manual dan memeriksa *log* harian. Sayangnya, cara manual seperti ini sudah tidak lagi relevan.Peretas masa kini sudah menggunakan metode otomatis yang masif dan tersebar. Jika sebuah perusahaan hanya mengandalkan tenaga manusia untuk memeriksa ribuan atau bahkan jutaan baris lalu lintas data setiap harinya, sistem mereka pasti akan kewalahan dan akhirnya jebol. Di sinilah pendekatan keamanan jaringan membutuhkan cara pandang yang baru.
-
-
-
-## Contoh Penerapan AI dalam Keamanan Siber
+### Contoh Penerapan AI dalam Keamanan Siber
 
 Untuk mengatasi keterbatasan sistem tradisional dan tenaga manusia, Kecerdasan Buatan (AI) masuk untuk mengambil alih tugas-tugas komputasi berat. AI mengubah cara kita bertahan, dari yang awalnya hanya pasrah menunggu diserang (pendekatan reaktif) menjadi lebih waspada dan bersiap sebelum serangan terjadi (pendekatan proaktif).
 
@@ -132,11 +138,7 @@ AI juga bertugas sebagai agen pengumpul intelijen yang bekerja dengan kecepatan 
 
 Kehadiran Kecerdasan Buatan dalam ranah keamanan siber jelas membawa perubahan yang luar biasa. Namun, penting untuk dicatat bahwa AI bukanlah entitas yang akan menggantikan peran seorang insinyur keamanan (*Security Engineer*). AI lebih tepat disebut sebagai alat kolaborasi tingkat tinggi. Mesin bertugas memproses jutaan data, menyaring anomali, dan menahan serangan awal dalam hitungan detik. Di sisi lain, manusia tetap memegang kendali untuk melakukan investigasi mendalam, merumuskan kebijakan keamanan, dan mengambil keputusan strategis. Sinergi antara kecepatan komputasi mesin dan logika analitis manusia inilah yang menjadi kunci utama pertahanan jaringan di masa depan.
 
-
-
-\---
-
-
+---
 
 ### Referensi
 
@@ -148,4 +150,3 @@ Artikel ini disusun berdasarkan studi literatur dari jurnal akademik berikut:
 🔗 [Tautan Publikasi Jurnal](https://jurnal.polgan.ac.id/index.php/jmp/article/download/14356/2931/20482)
 3. Abast, B. R., dkk. (2025). *"Pengaruh Teknologi AI Terhadap Evolusi Modus Kejahatan Siber di Indonesia dan Implikasinya Terhadap Penegakan Hukum"*. Jurnal Nusantara (JICN), 2(6).  
 🔗 [Tautan Publikasi Jurnal](https://jicnusantara.com/index.php/jicn/article/download/6108/6137/34433)
-
