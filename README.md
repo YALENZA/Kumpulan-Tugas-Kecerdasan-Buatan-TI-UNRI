@@ -1,10 +1,182 @@
 # Kumpulan Penyelesaian Tugas Kecerdasan Buatan oleh Athaya Nabil Putra Halby (2407134906) -- TI UNRI
 
 ## Daftar Isi
-- [Tugas 2: Ruang Masalah AI (Kasus Water Jug)](#tugas-2-ruang-masalah-ai-kasus-water-jug)
-- [Tugas 1: Artikel Implementasi AI dalam Cybersecurity](#tugas-1-artikel-implementasi-ai-dalam-cybersecurity)
+- [Tugas 3: Metode Pencarian](#tugas-3-metode-pencarian)
+- [Tugas 2: Kasus Water Jug](#tugas-2-kasus-water-jug)
+- [Tugas 1: Artikel Penerapan Kecerdasan Buatan dalam Dunia Nyata](#tugas-1-artikel-penerapan-kecerdasan-buatan-dalam-dunia-nyata)
 
 ---
+
+## Tugas 3: Metode Pencarian
+
+### 1. Jawaban Soal Pertama (Contoh)
+
+**A. Representasi Graf**
+Berdasarkan gambar *maze* pada bagian contoh, jalur yang dapat dilalui direpresentasikan sebagai sebuah graf. Garis pembatas (tembok) diabaikan, dan titik percabangan dipetakan sebagai *node*. Node dengan warna merah menunjukkan bahwa jalur tersebut merupakan jalan buntu.
+
+```mermaid
+graph TD
+    A((A START)):::start --- B((B))
+    
+    B --- C((C))
+    B --- I((I))
+    
+    C --- D((D))
+    D --- E((E))
+    E --- F((F))
+    F --- G((G))
+    G --- H((H BUNTU)):::buntu
+    
+    C --- P((P))
+    P --- Q((Q))
+    Q --- R((R BUNTU)):::buntu
+    
+    P --- S((S))
+    S --- T((T))
+    T --- U((U))
+    
+    I --- J((J))
+    J --- K((K))
+    K --- L((L))
+    
+    L --- M((M))
+    L --- X((X))
+    M --- N((N))
+    N --- O((O BUNTU)):::buntu
+    
+    X --- Y((Y))
+    Y --- U
+    
+    U --- V((V))
+    V --- W((W GOAL)):::goal
+
+    classDef start fill:#0d6efd,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef goal fill:#28a745,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef buntu fill:#dc3545,stroke:#fff,stroke-width:2px,color:#fff;
+```
+
+**B. Pencarian Jalur Terpendek (BFS vs DFS)**
+Untuk menentukan rute terpendek dari node A ke W, kita membandingkan metode *Breadth-First Search* (BFS) dan *Depth-First Search* (DFS). Apabila terdapat persimpangan, node akan dievaluasi berdasarkan urutan alfabet (misalnya, cabang C diprioritaskan sebelum cabang I).
+
+**1. Breadth-First Search (BFS)**
+Metode BFS melakukan pencarian secara melebar pada setiap level graf. Pendekatan ini menjamin ditemukannya rute dengan jumlah langkah paling sedikit.
+* **Proses penelusuran per level:**
+  * Level 0: A
+  * Level 1: B
+  * Level 2: C, I
+  * Level 3: D, P, J
+  * Level 4: E, Q, S, K
+  * Level 5: F, R (buntu), T, L
+  * Level 6: G, U, M, X
+  * Level 7: H (buntu), V, N, Y
+  * Level 8: W (ditemukan via V), O (buntu)
+
+* **Jalur BFS:** **A - B - C - P - S - T - U - V - W** (8 langkah)
+
+**2. Depth-First Search (DFS)**
+Metode DFS menelusuri satu cabang jalur sedalam mungkin. Apabila mencapai jalan buntu, proses akan melakukan runut balik (*backtracking*) ke persimpangan sebelumnya untuk mencoba jalur alternatif.
+* **Proses penelusuran:**
+  * Dimulai dari A menuju B.
+  * Pada persimpangan B (cabang C dan I), dipilih C berdasarkan urutan alfabet.
+  * Pada persimpangan C (cabang D dan P), dipilih D.
+  * Jalur ditelusuri lurus dari D menuju E, F, G, dan berakhir buntu di H. Proses melakukan *backtrack* ke C.
+  * Dari C, pencarian dilanjutkan ke cabang P. Terdapat cabang Q dan S, sehingga Q dipilih.
+  * Cabang Q berakhir buntu di R. Proses kembali melakukan *backtrack* ke P.
+  * Dari P, pencarian dilanjutkan ke S, lalu lurus menuju T dan U.
+  * Pada persimpangan U (cabang V dan Y), dipilih V yang langsung mengarah ke W.
+
+* **Jalur DFS:** **A - B - C - P - S - T - U - V - W**
+
+**Kesimpulan**
+Kedua algoritma menghasilkan rute akhir yang sama. Namun, BFS lebih efisien dalam menemukan rute terpendek pada topologi *maze* ini. Sebaliknya, DFS harus melalui proses *backtracking* di dua jalan buntu (node H dan R) karena mengikuti aturan prioritas alfabet sebelum akhirnya menemukan jalur yang tepat.
+
+### 2. Jawaban Soal Kedua (Latihan)
+
+**A. Representasi Graf**
+Berdasarkan topologi pada gambar *maze* kedua, jalur yang dapat dilalui direpresentasikan kembali sebagai graf. Titik percabangan dipetakan sebagai *node*, sedangkan node yang ditandai dengan warna merah menunjukkan jalan buntu (*dead end*).
+
+```mermaid
+graph TD
+    A((A START)):::start --- B((B))
+    
+    %% Persimpangan Awal
+    B --- C((C))
+    B --- I((I))
+    
+    %% Jalur Tengah via C
+    C --- D((D BUNTU)):::buntu
+    C --- P((P))
+    P --- Q((Q))
+    Q --- T((T))
+    
+    %% Cabang Bawah dari T
+    T --- G((G))
+    G --- F((F))
+    F --- E((E BUNTU)):::buntu
+    F --- S((S BUNTU)):::buntu
+    
+    %% Cabang Utama dari T menuju Target
+    T --- U((U))
+    U --- H((H))
+    H --- W((W GOAL)):::goal
+    
+    %% Jalur Kiri Atas via I
+    I --- R((R))
+    R --- K((K))
+    K --- J((J BUNTU)):::buntu
+    K --- L((L))
+    
+    %% Cabang dari L
+    L --- M((M))
+    M --- N((N BUNTU)):::buntu
+    L --- X((X))
+    
+    %% Persimpangan X dan Y
+    X --- O((O))
+    O --- V((V BUNTU)):::buntu
+    X --- Y((Y))
+    Y --- U
+    
+    classDef start fill:#0d6efd,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef goal fill:#28a745,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef buntu fill:#dc3545,stroke:#fff,stroke-width:2px,color:#fff;
+```
+
+**B. Pencarian Jalur Terpendek (BFS vs DFS)**
+Sama seperti kasus sebelumnya, pencarian rute terpendek dari A menuju W dilakukan dengan metode BFS dan DFS. Jika terdapat percabangan, algoritma akan memprioritaskan penelusuran berdasarkan urutan alfabet (misalnya memprioritaskan C dibandingkan I).
+
+**1. Breadth-First Search (BFS)**
+BFS melakukan pencarian jalur secara melebar untuk memastikan penemuan rute dengan jumlah langkah paling minimum.
+* **Proses penelusuran per level:**
+  * Level 0: A
+  * Level 1: B
+  * Level 2: C, I
+  * Level 3: D (buntu), P, R
+  * Level 4: Q, K
+  * Level 5: T, J (buntu), L
+  * Level 6: G, U, M, X
+  * Level 7: F, H, Y, N (buntu), O
+  * Level 8: E (buntu), S (buntu), **W (ditemukan via H)**, V (buntu)
+
+* **Jalur BFS:** **A - B - C - P - Q - T - U - H - W** (8 langkah)
+
+**2. Depth-First Search (DFS)**
+DFS menelusuri satu cabang jalur sedalam mungkin dan akan melakukan runut balik (*backtracking*) apabila menemui titik buntu.
+* **Proses penelusuran (dengan prioritas alfabet):**
+  * Dimulai dari A menuju B.
+  * Pada persimpangan B (cabang C dan I), dipilih C.
+  * Pada persimpangan C (cabang D dan P), dipilih D yang ternyata buntu. Proses *backtrack* kembali ke C.
+  * Dari C masuk ke cabang P, lalu diteruskan ke Q dan T.
+  * Pada persimpangan T (cabang G dan U), dipilih G.
+  * Dari G menuju F. Pada persimpangan F (cabang E dan S), dipilih E yang ternyata buntu. Proses *backtrack* ke F, lalu memilih S yang juga buntu.
+  * Sistem melakukan *backtrack* dari F kembali ke G, lalu ke T.
+  * Dari T, pencarian dilanjutkan ke cabang U. 
+  * Pada persimpangan U (cabang H dan Y), dipilih H yang langsung mengarah lurus ke W.
+
+* **Jalur DFS:** **A - B - C - P - Q - T - U - H - W**
+
+**Kesimpulan**
+Pada topologi labirin kedua ini, metode BFS dan DFS kembali menghasilkan rute final yang sama. Namun, kelemahan DFS terlihat lebih jelas karena kepatuhannya pada prioritas alfabet memaksa algoritma ini tersesat dan harus melakukan *backtracking* di tiga jalan buntu berbeda (node D, E, dan S) sebelum akhirnya menemukan jalur yang benar. Sebaliknya, BFS beroperasi dengan jauh lebih stabil dan langsung memetakan rute optimal.
 
 ## Tugas 2: Kasus Water Jug
 
@@ -161,6 +333,6 @@ Kehadiran Kecerdasan Buatan dalam ranah keamanan siber jelas membawa perubahan y
 Artikel ini disusun berdasarkan studi literatur dari jurnal akademik berikut:
 
 1. Widalala, R. R., dkk. (2024). *"Dampak Penggunaan Artificial Intelligence Pada Keamanan Siber: Sebuah Kajian Terhadap Potensi Keuntungan dan Ancaman"*. Berajah Journal, 4(8), 1541–1552.  
-[Tautan Publikasi Jurnal](https://ojs.berajah.com/index.php/go/article/view/458)
+[Link jurnal](https://ojs.berajah.com/index.php/go/article/view/458)
 2. Purnomo, A., dkk. (2024). *"Peran Artificial Intelligence dalam Deteksi Dini Ancaman Keamanan Jaringan"*. Jurnal Minfo Polgan, 13(2).  
-[Tautan Publikasi Jurnal](https://jurnal.polgan.ac.id/index.php/jmp/article/download/14356/2931/20482)
+[Link jurnal](https://jurnal.polgan.ac.id/index.php/jmp/article/download/14356/2931/20482)
