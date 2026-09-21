@@ -8,85 +8,91 @@
 
 ---
 
-## Tugas 4: Representasi Pengetahuan (Logika Predikat)
+## Tugas 4: Representasi Pengetahuan
 
 ### 1. Kasus Logika Karto
 **Jawaban:** Karto sudah **tidak hidup (mati)**.
 
 **A. Formula Logika Predikat (Prolog)**
-Sembilan pernyataan dari soal dipetakan menjadi basis pengetahuan (fakta dan aturan) menggunakan format huruf kecil:
-1. `laki_laki(karto).`
-2. `orang_jawa(karto).`
-3. `lahir(karto, 1855).`
-4. `mati(X) :- laki_laki(X).`
-5. `mati(X) :- orang_jawa(X), tahun(Y), Y >= 1883.`
-6. `mati(X) :- umur(X, U), U > 150.`
-7. `tahun(2018).`
-8. `tidak_hidup(X) :- mati(X).`
-9. `dinyatakan_mati(X) :- mati(X).`
+Sembilan pernyataan dari soal dipetakan menjadi basis pengetahuan menggunakan format huruf kecil[cite: 9]:
+```prolog
+% Fakta
+laki_laki(karto).
+orang_jawa(karto).
+lahir(karto, 1855).
+tahun(2018).
+
+% Aturan (Rules)
+mati(X) :- laki_laki(X).
+mati(X) :- orang_jawa(X), tahun(Y), Y >= 1883.
+umur(X, U) :- lahir(X, ThnLahir), tahun(ThnSekarang), U is ThnSekarang - ThnLahir.
+mati(X) :- umur(X, U), U > 150.
+tidak_hidup(X) :- mati(X).
+dinyatakan_mati(X) :- mati(X).
+```
 
 **B. Proses Pembuktian**
-Berdasarkan aturan di atas, status Karto bisa dibuktikan mati melalui beberapa fakta sekaligus:
-* **Berdasarkan batas umur:** Karto lahir tahun 1855. Di tahun pencarian (2018), umurnya mencapai 163 tahun. Karena aturan ke-6 menetapkan batas umur hidup maksimal 150 tahun, Karto otomatis berstatus mati.
-* **Berdasarkan peristiwa (garis keturunan):** Aturan ke-5 menetapkan bahwa semua orang Jawa mati saat Krakatau meletus (1883). Karena Karto adalah orang Jawa dan tahun 1883 sudah terlewati, ia dipastikan mati.
-* Karena status `mati(karto)` terpenuhi secara logis, sistem langsung mengeksekusi aturan ke-8 yang menghasilkan kesimpulan akhir `tidak_hidup(karto)`.
+Berdasarkan aturan di atas, status Karto bisa dibuktikan mati melalui tiga jalur logika sekaligus:
+* **Berdasarkan batas umur:** Karto lahir tahun 1855[cite: 9]. Melalui kalkulasi `umur`, di tahun pencarian (2018) umurnya mencapai 163 tahun[cite: 9]. Karena aturan menetapkan batas umur maksimal 150 tahun, Karto berstatus mati[cite: 9].
+* **Berdasarkan peristiwa (garis keturunan):** Aturan menetapkan bahwa semua orang Jawa mati saat Krakatau meletus (1883)[cite: 9]. Karena Karto adalah orang Jawa dan tahun 1883 sudah terlewati, ia dipastikan mati.
+* **Berdasarkan gender:** Aturan "Setiap laki-laki pasti mati" juga langsung memenuhi syarat `mati(karto)`[cite: 9].
+* Karena status `mati(karto)` terpenuhi, sistem langsung mengeksekusi aturan `tidak_hidup(X) :- mati(X)` yang menghasilkan kesimpulan akhir bahwa Karto tidak hidup[cite: 9].
 
 ---
 
 ### 2. Silsilah Keluarga
 
 **A. Fakta Dasar**
-Hubungan inti dari bagan silsilah didaftarkan ke dalam sistem menggunakan predikat `putra` dan `putri`:
+Berdasarkan bagan silsilah, kita daftarkan hubungan inti dengan predikat `putra` dan `putri` sesuai instruksi, serta menambahkan data gender untuk validasi relasi[cite: 9]:
 
 ```prolog
-putra(budi, anto).
-putra(budi, wati).
-putri(ita, anto).
-putri(ita, wati).
-putri(ida, anto).
-putri(ida, wati).
-putra(hadi, deni).
-putra(hadi, ita).
+% Gender
+laki_laki(anto). laki_laki(budi). laki_laki(rudi). laki_laki(deni). laki_laki(hadi). laki_laki(andi).
+perempuan(wati). perempuan(ita). perempuan(ida). perempuan(dina). perempuan(rita).
+
+% Relasi Anak
+putra(budi, anto). putra(budi, wati).
+putri(ita, anto). putri(ita, wati).
+putri(ida, anto). putri(ida, wati).
+putra(hadi, deni). putra(hadi, ita).
 putri(dina, budi).
-putra(andi, ida).
-putra(andi, rudi).
-putri(rita, ida).
-putri(rita, rudi).
+putra(andi, ida). putra(andi, rudi).
+putri(rita, ida). putri(rita, rudi).
 ```
 
 **B. Aturan Relasi Keluarga**
-Berdasarkan kumpulan fakta dasar di atas, kita dapat membuat aturan logika untuk menentukan hubungan keluarga yang lebih spesifik:
+Berdasarkan fakta di atas, kita merumuskan aturan logika untuk mendefinisikan relasi turunan[cite: 9]:
 
 ```prolog
 % Relasi dasar orang tua
 orangtua(X, Y) :- putra(Y, X).
 orangtua(X, Y) :- putri(Y, X).
 
-% Relasi saudara kandung (memiliki orang tua yang sama)
+% Relasi saudara kandung
 saudara(X, Y) :- orangtua(Z, X), orangtua(Z, Y), X \= Y.
 
 % Relasi paman dan bibi
-paman(X, Y) :- orangtua(Z, Y), saudara(X, Z), putra(X, _).
-bibi(X, Y) :- orangtua(Z, Y), saudara(X, Z), putri(X, _).
+paman(X, Y) :- orangtua(Z, Y), saudara(X, Z), laki_laki(X).
+bibi(X, Y) :- orangtua(Z, Y), saudara(X, Z), perempuan(X).
 
 % Relasi kakek dan nenek
-kakek(X, Y) :- orangtua(Z, Y), orangtua(X, Z), putra(X, _).
-nenek(X, Y) :- orangtua(Z, Y), orangtua(X, Z), putri(X, _).
+kakek(X, Y) :- orangtua(Z, Y), orangtua(X, Z), laki_laki(X).
+nenek(X, Y) :- orangtua(Z, Y), orangtua(X, Z), perempuan(X).
 
-% Relasi sepupu (anak dari saudara orang tua)
+% Relasi sepupu 
 sepupu(X, Y) :- orangtua(A, X), orangtua(B, Y), saudara(A, B).
 ```
 
 ---
 
 ### 3. Struktur Organisasi Perusahaan
-**Jawaban:** Bawahan Burhan adalah **Bahrun, Bisrin, Fahri, Farah, dan Ferdi**.
+**Jawaban:** Bawahan Burhan adalah **Bahrun, Bisrin, Fahri, Farah, dan Ferdi**[cite: 9].
 
 **A. Pemetaan Logika**
-Hierarki perusahaan diubah menjadi predikat `bawahan` secara langsung berdasarkan struktur bagan:
+Hierarki perusahaan dipetakan menggunakan predikat `bawahan` dan `atasan` sesuai instruksi[cite: 9]:
 
 ```prolog
-% Fakta bawahan langsung
+% Fakta hierarki (bawahan langsung)
 bawahan(burhan, adi).
 bawahan(bahrun, burhan).
 bawahan(bisrin, burhan).
@@ -94,15 +100,18 @@ bawahan(fahri, bahrun).
 bawahan(farah, bahrun).
 bawahan(ferdi, bisrin).
 
-% Aturan untuk mencari bawahan langsung maupun tidak langsung secara berantai
+% Aturan Atasan
+atasan(X, Y) :- bawahan(Y, X).
+
+% Aturan rekursif untuk melacak bawahan di semua tingkatan (total)
 bawahan_total(X, Y) :- bawahan(X, Y).
 bawahan_total(X, Y) :- bawahan(X, Z), bawahan_total(Z, Y).
 ```
 
 **B. Proses Pembuktian**
-Saat menjalankan perintah pencarian bawahan Burhan menggunakan aturan `bawahan_total(X, burhan)`, sistem akan menyapu seluruh tingkatan struktur yang ada di bawahnya:
-* **Lapisan pertama (bawahan langsung):** Bahrun dan Bisrin.
-* **Lapisan kedua (bawahan tidak langsung):** Fahri dan Farah (anak buah Bahrun), serta Ferdi (anak buah Bisrin).
+Saat menjalankan perintah pencarian `bawahan_total(X, burhan)`, sistem akan menyapu seluruh tingkatan struktur organisasi ke bawah:
+* **Lapisan pertama (bawahan langsung):** Bahrun dan Bisrin[cite: 9].
+* **Lapisan kedua (bawahan tidak langsung):** Fahri dan Farah (bawahan Bahrun), serta Ferdi (bawahan Bisrin)[cite: 9].
 
 ## Tugas 3: Metode Pencarian
 
