@@ -1,11 +1,108 @@
 # Kumpulan Penyelesaian Tugas Kecerdasan Buatan oleh Athaya Nabil Putra Halby (2407134906) -- TI UNRI
 
 ## Daftar Isi
+- [Tugas 4: Representasi Pengetahuan](#tugas-4-representasi-pengetahuan)
 - [Tugas 3: Metode Pencarian](#tugas-3-metode-pencarian)
 - [Tugas 2: Kasus Water Jug](#tugas-2-kasus-water-jug)
 - [Tugas 1: Artikel Penerapan Kecerdasan Buatan dalam Dunia Nyata](#tugas-1-artikel-penerapan-kecerdasan-buatan-dalam-dunia-nyata)
 
 ---
+
+## Tugas 4: Representasi Pengetahuan (Logika Predikat)
+
+### 1. Kasus Logika Karto
+**Jawaban:** Karto sudah **tidak hidup (mati)**.
+
+**A. Formula Logika Predikat (Prolog)**
+Sembilan pernyataan dari soal dipetakan menjadi basis pengetahuan (fakta dan aturan) menggunakan format huruf kecil:
+1. `laki_laki(karto).`
+2. `orang_jawa(karto).`
+3. `lahir(karto, 1855).`
+4. `mati(X) :- laki_laki(X).`
+5. `mati(X) :- orang_jawa(X), tahun(Y), Y >= 1883.`
+6. `mati(X) :- umur(X, U), U > 150.`
+7. `tahun(2018).`
+8. `tidak_hidup(X) :- mati(X).`
+9. `dinyatakan_mati(X) :- mati(X).`
+
+**B. Proses Pembuktian**
+Berdasarkan aturan di atas, status Karto bisa dibuktikan mati melalui beberapa fakta sekaligus:
+* **Berdasarkan batas umur:** Karto lahir tahun 1855. Di tahun pencarian (2018), umurnya mencapai 163 tahun. Karena aturan ke-6 menetapkan batas umur hidup maksimal 150 tahun, Karto otomatis berstatus mati.
+* **Berdasarkan peristiwa (garis keturunan):** Aturan ke-5 menetapkan bahwa semua orang Jawa mati saat Krakatau meletus (1883). Karena Karto adalah orang Jawa dan tahun 1883 sudah terlewati, ia dipastikan mati.
+* Karena status `mati(karto)` terpenuhi secara logis, sistem langsung mengeksekusi aturan ke-8 yang menghasilkan kesimpulan akhir `tidak_hidup(karto)`.
+
+---
+
+### 2. Silsilah Keluarga
+
+**A. Fakta Dasar**
+Hubungan inti dari bagan silsilah didaftarkan ke dalam sistem menggunakan predikat `putra` dan `putri`:
+
+```prolog
+putra(budi, anto).
+putra(budi, wati).
+putri(ita, anto).
+putri(ita, wati).
+putri(ida, anto).
+putri(ida, wati).
+putra(hadi, deni).
+putra(hadi, ita).
+putri(dina, budi).
+putra(andi, ida).
+putra(andi, rudi).
+putri(rita, ida).
+putri(rita, rudi).
+```
+
+**B. Aturan Relasi Keluarga**
+Berdasarkan kumpulan fakta dasar di atas, kita dapat membuat aturan logika untuk menentukan hubungan keluarga yang lebih spesifik:
+
+```prolog
+% Relasi dasar orang tua
+orangtua(X, Y) :- putra(Y, X).
+orangtua(X, Y) :- putri(Y, X).
+
+% Relasi saudara kandung (memiliki orang tua yang sama)
+saudara(X, Y) :- orangtua(Z, X), orangtua(Z, Y), X \= Y.
+
+% Relasi paman dan bibi
+paman(X, Y) :- orangtua(Z, Y), saudara(X, Z), putra(X, _).
+bibi(X, Y) :- orangtua(Z, Y), saudara(X, Z), putri(X, _).
+
+% Relasi kakek dan nenek
+kakek(X, Y) :- orangtua(Z, Y), orangtua(X, Z), putra(X, _).
+nenek(X, Y) :- orangtua(Z, Y), orangtua(X, Z), putri(X, _).
+
+% Relasi sepupu (anak dari saudara orang tua)
+sepupu(X, Y) :- orangtua(A, X), orangtua(B, Y), saudara(A, B).
+```
+
+---
+
+### 3. Struktur Organisasi Perusahaan
+**Jawaban:** Bawahan Burhan adalah **Bahrun, Bisrin, Fahri, Farah, dan Ferdi**.
+
+**A. Pemetaan Logika**
+Hierarki perusahaan diubah menjadi predikat `bawahan` secara langsung berdasarkan struktur bagan:
+
+```prolog
+% Fakta bawahan langsung
+bawahan(burhan, adi).
+bawahan(bahrun, burhan).
+bawahan(bisrin, burhan).
+bawahan(fahri, bahrun).
+bawahan(farah, bahrun).
+bawahan(ferdi, bisrin).
+
+% Aturan untuk mencari bawahan langsung maupun tidak langsung secara berantai
+bawahan_total(X, Y) :- bawahan(X, Y).
+bawahan_total(X, Y) :- bawahan(X, Z), bawahan_total(Z, Y).
+```
+
+**B. Proses Pembuktian**
+Saat menjalankan perintah pencarian bawahan Burhan menggunakan aturan `bawahan_total(X, burhan)`, sistem akan menyapu seluruh tingkatan struktur yang ada di bawahnya:
+* **Lapisan pertama (bawahan langsung):** Bahrun dan Bisrin.
+* **Lapisan kedua (bawahan tidak langsung):** Fahri dan Farah (anak buah Bahrun), serta Ferdi (anak buah Bisrin).
 
 ## Tugas 3: Metode Pencarian
 
