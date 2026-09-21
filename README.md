@@ -14,7 +14,7 @@
 **Jawaban:** Karto sudah **tidak hidup (mati)**.
 
 **A. Formula Logika Predikat (Prolog)**
-Sembilan pernyataan dari soal dipetakan menjadi basis pengetahuan menggunakan format huruf kecil[cite: 9]:
+Sembilan pernyataan dari soal dipetakan menjadi basis pengetahuan menggunakan format huruf kecil:
 ```prolog
 % Fakta
 laki_laki(karto).
@@ -33,17 +33,17 @@ dinyatakan_mati(X) :- mati(X).
 
 **B. Proses Pembuktian**
 Berdasarkan aturan di atas, status Karto bisa dibuktikan mati melalui tiga jalur logika sekaligus:
-* **Berdasarkan batas umur:** Karto lahir tahun 1855[cite: 9]. Melalui kalkulasi `umur`, di tahun pencarian (2018) umurnya mencapai 163 tahun[cite: 9]. Karena aturan menetapkan batas umur maksimal 150 tahun, Karto berstatus mati[cite: 9].
-* **Berdasarkan peristiwa (garis keturunan):** Aturan menetapkan bahwa semua orang Jawa mati saat Krakatau meletus (1883)[cite: 9]. Karena Karto adalah orang Jawa dan tahun 1883 sudah terlewati, ia dipastikan mati.
-* **Berdasarkan gender:** Aturan "Setiap laki-laki pasti mati" juga langsung memenuhi syarat `mati(karto)`[cite: 9].
-* Karena status `mati(karto)` terpenuhi, sistem langsung mengeksekusi aturan `tidak_hidup(X) :- mati(X)` yang menghasilkan kesimpulan akhir bahwa Karto tidak hidup[cite: 9].
+* **Berdasarkan batas umur:** Karto lahir tahun 1855. Melalui kalkulasi `umur`, di tahun pencarian (2018) umurnya mencapai 163 tahun. Karena aturan menetapkan batas umur maksimal 150 tahun, Karto berstatus mati.
+* **Berdasarkan peristiwa (garis keturunan):** Aturan menetapkan bahwa semua orang Jawa mati saat Krakatau meletus (1883). Karena Karto adalah orang Jawa dan tahun 1883 sudah terlewati, ia dipastikan mati.
+* **Berdasarkan gender:** Aturan "Setiap laki-laki pasti mati" juga langsung memenuhi syarat `mati(karto)`.
+* Karena status `mati(karto)` terpenuhi, sistem langsung mengeksekusi aturan `tidak_hidup(X) :- mati(X)` yang menghasilkan kesimpulan akhir bahwa Karto tidak hidup.
 
 ---
 
 ### 2. Silsilah Keluarga
 
 **A. Fakta Dasar**
-Berdasarkan bagan silsilah, kita daftarkan hubungan inti dengan predikat `putra` dan `putri` sesuai instruksi, serta menambahkan data gender untuk validasi relasi[cite: 9]:
+Berdasarkan bagan silsilah, kita daftarkan hubungan inti dengan predikat `putra` dan `putri` sesuai instruksi, serta menambahkan data gender untuk validasi relasi:
 
 ```prolog
 % Gender
@@ -61,7 +61,7 @@ putri(rita, ida). putri(rita, rudi).
 ```
 
 **B. Aturan Relasi Keluarga**
-Berdasarkan fakta di atas, kita merumuskan aturan logika untuk mendefinisikan relasi turunan[cite: 9]:
+Berdasarkan fakta di atas, kita merumuskan aturan logika untuk mendefinisikan relasi turunan:
 
 ```prolog
 % Relasi dasar orang tua
@@ -86,10 +86,10 @@ sepupu(X, Y) :- orangtua(A, X), orangtua(B, Y), saudara(A, B).
 ---
 
 ### 3. Struktur Organisasi Perusahaan
-**Jawaban:** Bawahan Burhan adalah **Bahrun, Bisrin, Fahri, Farah, dan Ferdi**[cite: 9].
+**Jawaban:** Bawahan Burhan adalah **Bahrun, Bisrin, Fahri, Farah, dan Ferdi**.
 
 **A. Pemetaan Logika**
-Hierarki perusahaan dipetakan menggunakan predikat `bawahan` dan `atasan` sesuai instruksi[cite: 9]:
+Hierarki perusahaan dipetakan menggunakan predikat `bawahan` dan `atasan` sesuai instruksi:
 
 ```prolog
 % Fakta hierarki (bawahan langsung)
@@ -110,8 +110,8 @@ bawahan_total(X, Y) :- bawahan(X, Z), bawahan_total(Z, Y).
 
 **B. Proses Pembuktian**
 Saat menjalankan perintah pencarian `bawahan_total(X, burhan)`, sistem akan menyapu seluruh tingkatan struktur organisasi ke bawah:
-* **Lapisan pertama (bawahan langsung):** Bahrun dan Bisrin[cite: 9].
-* **Lapisan kedua (bawahan tidak langsung):** Fahri dan Farah (bawahan Bahrun), serta Ferdi (bawahan Bisrin)[cite: 9].
+* **Lapisan pertama (bawahan langsung):** Bahrun dan Bisrin.
+* **Lapisan kedua (bawahan tidak langsung):** Fahri dan Farah (bawahan Bahrun), serta Ferdi (bawahan Bisrin).
 
 ## Tugas 3: Metode Pencarian
 
